@@ -1,6 +1,7 @@
 import {db} from "../db.js"
 import jwt from "jsonwebtoken";
 
+
 //  token verification to delete and edit the post using miidleware(verifyToken)
  export const verifyToken = (req, res, next) => {
     const token = req.headers["authorization"];
@@ -11,7 +12,7 @@ import jwt from "jsonwebtoken";
     const bearerToken = token.split(" ")[1];
     
   
-    jwt.verify(bearerToken, "geethu_2b", (err, user) => {
+    jwt.verify(bearerToken, process.env.JWT_SECRET, (err, user) => {
       if (err) return res.status(403).json("Invalid token!");
       
       req.user = user; // Add user info to request
@@ -21,7 +22,7 @@ import jwt from "jsonwebtoken";
 
 export const getPosts = (req,res) => {
 
-    const query = req.query.cat ? "select * from blog_posts where category=?": "select * from blog_Posts";
+    const query = req.query.cat ? "select * from blog_posts where category=?" : "select * from blog_Posts";
 
     db.query(query,[req.query.cat],(err,data) => {
         if(err) return res.status(500).send(err);

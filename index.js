@@ -5,13 +5,8 @@ import postRoutes from "./routes/posts.js";
 import authRoutes from "./routes/auth.js";
 import userRoutes from "./routes/users.js";
 import multer from "multer";
-
-
-
-
-
-
-const port = 3000;
+import dotenv from "dotenv";
+dotenv.config();
 
 
 const app = express();
@@ -44,13 +39,12 @@ app.post('/api/upload', upload.single('file'), function (req, res) {
   })
 
 
-
 app.use("/api/posts",postRoutes);
 app.use("/api/auth",authRoutes);
 app.use("/api/users",userRoutes);
 
 
 
-app.listen(port,() => {
-console.log("connected to the "+port)
+app.listen(process.env.PORT,() => {
+console.log("connected to the ",process.env.PORT)
 })

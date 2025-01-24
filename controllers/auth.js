@@ -46,7 +46,7 @@ db.query(q,[req.body.username], (err,data) => {
 
     if(!isPassCorect) return res.status(400).json("wrong username or password");
 
-    const token = jwt.sign({id:data[0].id},"geethu_2b");
+    const token = jwt.sign({id:data[0].id},process.env.JWT_SECRET);
     
     const {password, ...userDetails} = data[0]
 
