@@ -10,7 +10,10 @@ import multer from "multer";
 const app = express();
 
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+  origin: 'https://blog-backend-icsf.onrender.com',
+  methods: ['GET','POST']
+}));
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
